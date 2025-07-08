@@ -9,4 +9,5 @@ class CategoriaModel(ModelBase):
 
     pk_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     nome: Mapped[str] = mapped_column(String(50), nullable=False)
-    atleta: Mapped[List['AtletaModel']] = relationship(back_populates='categoria')
+
+    atletas: Mapped[List['AtletaModel']] = relationship('AtletaModel', back_populates='categoria')

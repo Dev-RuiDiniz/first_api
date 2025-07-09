@@ -1,83 +1,81 @@
-# FastAPI
-### Quem é o FastAPi?
-Framework FastAPI, alta performance, fácil de aprender, fácil de codar, pronto para produção.
-FastAPI é um moderno e rápido (alta performance) framework web para construção de APIs com Python 3.6 ou superior, baseado nos type hints padrões do Python.
+WorkoutAPI: Desenvolva uma API de Crossfit com FastAPI e PostgreSQL
+Este projeto, WorkoutAPI, é uma API de competição de Crossfit desenvolvida para ser um guia prático no uso do FastAPI, um framework Python moderno e de alta performance. Unindo minha paixão por codificar e treinar, criei uma API simplificada, mas completa o suficiente para você dominar os conceitos essenciais do FastAPI.
 
-### Async
-Código assíncrono apenas significa que a linguagem tem um jeito de dizer para o computador / programa que em certo ponto, ele terá que esperar por algo para finalizar em outro lugar
+Por que FastAPI?
+O FastAPI é um framework web Python moderno, rápido e fácil de usar, ideal para construir APIs com alta performance. Sua principal característica é a utilização de type hints do Python 3.6+ para garantir validação de dados, serialização, e documentação automática (OpenAPI/Swagger UI).
 
-# Projeto
-## WorkoutAPI
+O Poder do Código Assíncrono (async)
+Neste projeto, utilizamos código assíncrono, o que permite que a API lide com múltiplas operações simultaneamente, sem bloquear a execução enquanto espera por respostas de I/O (como chamadas de banco de dados). Isso é crucial para construir APIs responsivas e escaláveis.
 
-Esta é uma API de competição de crossfit chamada WorkoutAPI (isso mesmo rs, eu acabei unificando duas coisas que gosto: codar e treinar). É uma API pequena, devido a ser um projeto mais hands-on e simplificado nós desenvolveremos uma API de poucas tabelas, mas com o necessário para você aprender como utilizar o FastAPI.
+Estrutura do Projeto: WorkoutAPI
+A WorkoutAPI é uma API de Crossfit com poucas tabelas, focando no essencial para um aprendizado eficaz do FastAPI. Ela demonstra como integrar e usar as principais ferramentas do ecossistema Python para desenvolvimento de APIs.
 
-## Modelagem de entidade e relacionamento - MER
-![MER](/mer.jpg "Modelagem de entidade e relacionamento")
+Stack Tecnológica
+A API foi construída com:
 
-## Stack da API
+FastAPI: O framework web principal para a API.
 
-A API foi desenvolvida utilizando o `fastapi` (async), junto das seguintes libs: `alembic`, `SQLAlchemy`, `pydantic`. Para salvar os dados está sendo utilizando o `postgres`, por meio do `docker`.
+SQLAlchemy: Um poderoso ORM (Object-Relational Mapper) para interagir com o banco de dados.
 
-## Execução da API
+Alembic: Uma ferramenta para gerenciar migrações de banco de dados, garantindo que o esquema do seu DB evolua de forma controlada.
 
-Para executar o projeto, utilizei a [pyenv](https://github.com/pyenv/pyenv), com a versão 3.11.4 do `python` para o ambiente virtual.
+Pydantic: Utilizado para validação de dados e serialização, aproveitando os type hints do Python.
 
-Caso opte por usar pyenv, após instalar, execute:
+PostgreSQL: O banco de dados relacional robusto e amplamente utilizado, rodando via Docker para facilitar a configuração e o gerenciamento.
 
-```bash
+Como Executar o Projeto
+Siga estes passos para colocar a WorkoutAPI em funcionamento na sua máquina:
+
+Configuração do Ambiente Virtual (Pyenv recomendado):
+Recomendo usar o pyenv para gerenciar as versões do Python.
+
+Bash
+
 pyenv virtualenv 3.11.4 workoutapi
 pyenv activate workoutapi
 pip install -r requirements.txt
-```
-Para subir o banco de dados, caso não tenha o [docker-compose](https://docs.docker.com/compose/install/linux/) instalado, faça a instalação e logo em seguida, execute:
+Subir o Banco de Dados (Docker Compose):
+Certifique-se de ter o Docker e o Docker Compose instalados.
 
-```bash
+Bash
+
 make run-docker
-```
-Para criar uma migration nova, execute:
+Para conectar-se diretamente ao PostgreSQL, use as credenciais: host: localhost, porta: 5433, usuário: workout, senha: workout, banco de dados: workout.
 
-```bash
+Criar Migrações (Alembic):
+Para gerar uma nova migração de banco de dados:
+
+Bash
+
 make create-migrations d="nome_da_migration"
-```
+Aplicar Migrações (Banco de Dados):
+Para criar as tabelas no banco de dados:
 
-Para criar o banco de dados, execute:
+Bash
 
-```bash
 make run-migrations
-```
+Iniciar a API:
 
-## API
+Bash
 
-Para subir a API, execute:
-```bash
 make run
-```
-e acesse: http://127.0.0.1:8000/docs
+Após iniciar, acesse a documentação interativa da API em: http://127.0.0.1:8000/docs
 
-# Desafio Final
-    - adicionar query parameters nos endpoints
-        - atleta
-            - nome
-            - cpf
-    - customizar response de retorno de endpoints
-        - get all
-            - atleta
-                - nome
-                - centro_treinamento
-                - categoria
-    - Manipular exceção de integridade dos dados em cada módulo/tabela
-        - sqlalchemy.exc.IntegrityError e devolver a seguinte mensagem: “Já existe um atleta cadastrado com o cpf: x”
-        - status_code: 303
-    - Adicionar paginação utilizando a lib: fastapi-pagination
-        - limit e offset
-# Referências
+Desafio Final (Para Aprimorar suas Habilidades)
+Este projeto também propõe alguns desafios para você aprofundar seus conhecimentos:
 
-FastAPI: https://fastapi.tiangolo.com/
+Query Parameters nos Endpoints:
 
-Pydantic: https://docs.pydantic.dev/latest/
+Atleta: Adicione filtros por nome e cpf.
 
-SQLAlchemy: https://docs.sqlalchemy.org/en/20/
+Customizar Respostas de Endpoints (GET all):
 
-Alembic: https://alembic.sqlalchemy.org/en/latest/
+Atleta: Altere o retorno para incluir nome, centro_treinamento e categoria.
 
-Fastapi-pagination: https://uriyyo-fastapi-pagination.netlify.app/
+Manipulação de Exceção de Integridade:
+
+Capture sqlalchemy.exc.IntegrityError e retorne a mensagem customizada: "Já existe um atleta cadastrado com o cpf: x" com status_code: 303.
+
+Paginação:
+
+Implemente paginação usando a biblioteca fastapi-pagination com limit e offset.
